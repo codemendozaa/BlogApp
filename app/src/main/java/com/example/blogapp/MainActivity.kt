@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         }.addOnFailureListener { error ->
             Log.e("FirebaseError", error.toString())
-        }*/
+        }
         
         //consultar y ver en tiempo real cambios 
         db.collection("ciudades").document("LA").addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
@@ -46,9 +46,10 @@ class MainActivity : AppCompatActivity() {
             Log.d("Firebase", "se guardo correctamente la ciudad")
         }.addOnFailureListener { error->
             Log.e("FirebaseError", error.toString())
-        }
+        }*/
     }
 }
+/*
 
     data class  Ciudad(val population:Int = 0,
-                       val color:String ="")
+                       val color:String ="")*/
