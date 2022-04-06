@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.blogapp.core.BaseViewHolder
-import com.example.blogapp.data.Post
+import com.example.blogapp.data.model.Post
 import com.example.blogapp.databinding.PostItemViewBinding
 
 class HomeScreenAdapter(private val postList: List<Post>) :

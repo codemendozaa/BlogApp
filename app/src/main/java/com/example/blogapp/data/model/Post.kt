@@ -1,4 +1,4 @@
-package com.example.blogapp.data
+package com.example.blogapp.data.model
 
 import com.google.firebase.Timestamp
 
