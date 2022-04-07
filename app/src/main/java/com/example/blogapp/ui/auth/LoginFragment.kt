@@ -33,6 +33,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding = FragmentLoginBinding.bind(view)
         isUserLoggedIn()
         doLogin()
+        goToSigUpPage()
     }
 
     private fun isUserLoggedIn(){
@@ -48,6 +49,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             validateCredencial(email,password)
             signIn(email,password)
         }
+    }
+
+    private fun goToSigUpPage(){
+        binding.txtSignup.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
     }
 
     private fun validateCredencial(email:String,password:String){
