@@ -7,7 +7,7 @@
     tools:context=".ui.camera.CameraFragment">
 
     <ImageView
-        android:id="@+id/img_add_photo"
+        android:id="@+id/post_img"
         android:layout_width="match_parent"
         android:layout_height="250dp"/>
 
