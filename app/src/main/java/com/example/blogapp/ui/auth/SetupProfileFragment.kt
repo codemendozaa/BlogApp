@@ -46,33 +46,26 @@ class SetupProfileFragment : Fragment(R.layout.fragment_setup_profile) {
         }
 
         binding.btnCreateProfile.setOnClickListener {
-            val username = binding.editextUsername.text.toString()
+            val username = binding.editextUsername.text.toString().trim()
             val alertDialog = AlertDialog.Builder(requireContext()).setTitle("Uploading photo...").create()
-            bitmap.let {
-                if (username.isEmpty()) {
-                    it?.let { it ->
-                        viewModel.updateUserProfile(imageBitmap = it, username = username).observe(viewLifecycleOwner) { result ->
-                            when (result) {
-                                is Result.Loading -> {
-                                    alertDialog.show()
-                                }
-                                is Result.Success -> {
-                                    alertDialog.dismiss()
-                                    findNavController().navigate(R.id.action_setupProfileFragment_to_homeScreenFragment)
-
-                                }
-                                is Result.Failure -> {
-                                    alertDialog.dismiss()
-                                }
+            bitmap?.let {
+                if(username.isNotEmpty()) {
+                    viewModel.updateUserProfile(imageBitmap = it, username = username).observe(viewLifecycleOwner, { result ->
+                        when(result) {
+                            is Result.Loading -> {
+                                alertDialog.show()
                             }
-
+                            is Result.Success -> {
+                                alertDialog.dismiss()
+                                findNavController().navigate(R.id.action_setupProfileFragment_to_homeScreenFragment)
+                            }
+                            is Result.Failure -> {
+                                alertDialog.dismiss()
+                            }
                         }
-                    }
+                    })
                 }
-
             }
-
-
         }
     }
 
