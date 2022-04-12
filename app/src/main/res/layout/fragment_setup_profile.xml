@@ -12,6 +12,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="16dp"
+        android:src="@drawable/ic_baseline_image_search"
         android:layout_gravity="center"/>
     <EditText
         android:id="@+id/editext_username"
