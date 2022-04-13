@@ -17,6 +17,7 @@ class CameraDataSource {
         val baos = ByteArrayOutputStream()
         imageBitmap.compress(Bitmap.CompressFormat.JPEG ,100,baos)
         val downloadUrl = imageRef.putBytes(baos.toByteArray()).await().storage.downloadUrl.await().toString()
+        val postTime = System.currentTimeMillis()
         user?.let {
             it.displayName?.let { displayName->
                 FirebaseFirestore.getInstance().collection("post").add(Post(profile_name = displayName,
