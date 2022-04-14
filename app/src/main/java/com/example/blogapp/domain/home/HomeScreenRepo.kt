@@ -6,4 +6,5 @@ import com.example.blogapp.data.model.Post
 
 interface HomeScreenRepo {
     suspend fun getLatesPost():Result<List<Post>>
+    suspend fun registerLikeButtonState(postId:String,liked:Boolean)
 }

@@ -69,6 +69,18 @@ class HomeScreenFragment : Fragment(R.layout.fragment_home_screen),OnPostClickLi
     }
 
     override fun onLikeButtonClick(post: Post, liked: Boolean) {
-        TODO("Not yet implemented")
+        viewModel.registerLikeButtonState(post.id,liked).observe(viewLifecycleOwner){ result ->
+            when(result){
+                is Result.Loading->{}
+                is Result.Success->{}
+                is Result.Failure->{
+                    Toast.makeText(
+                        requireContext(),
+                        "Ocurrio un error: ${result.exception}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
     }
 }
