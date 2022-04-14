@@ -13,9 +13,9 @@ data class Post(
                 val post_image:String = "",
                 val post_description:String = "",
                 val poster:Poster? = null,
-                val like:Long = 0,
+                val likes:Long = 0,
                 @Exclude
                 @JvmField
-                val liked:Boolean  = false)
+                var liked:Boolean  = false)
 
 data class Poster(val username:String? ="",val uid:String? ="",val profile_picture:String="")

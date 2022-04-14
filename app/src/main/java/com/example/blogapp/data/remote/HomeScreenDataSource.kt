@@ -37,6 +37,7 @@ class HomeScreenDataSource {
                                 "created_at",
                                 DocumentSnapshot.ServerTimestampBehavior.ESTIMATE
                             )?.toDate()
+                         //   val like = isPostLiked(uid,postId)
                         }
                         postList.add(fbPost)
                     }
