@@ -8,24 +8,19 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.blogapp.R
 import com.example.blogapp.core.Result
-import com.example.blogapp.data.remote.HomeScreenDataSource
+
 import com.example.blogapp.data.remote.camera.CameraDataSource
 import com.example.blogapp.databinding.FragmentCameraBinding
 import com.example.blogapp.domain.camera.CameraRepoImpl
-import com.example.blogapp.domain.home.HomeScreenRepoImpl
-import com.example.blogapp.presentation.HomeScreenViewModel
-import com.example.blogapp.presentation.HomeScreenViewModelFactory
 import com.example.blogapp.presentation.camera.CameraViewModel
 import com.example.blogapp.presentation.camera.CameraViewModelFactory
-import java.lang.Exception
+
 
 class CameraFragment : Fragment(R.layout.fragment_camera) {
     private var REQUEST_IMAGE_CAPTURE = 1

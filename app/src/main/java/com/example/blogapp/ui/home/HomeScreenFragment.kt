@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.blogapp.R
-import com.example.blogapp.data.remote.HomeScreenDataSource
 import com.example.blogapp.databinding.FragmentHomeScreenBinding
 import com.example.blogapp.domain.home.HomeScreenRepoImpl
 import com.example.blogapp.presentation.HomeScreenViewModel
@@ -17,6 +16,7 @@ import com.example.blogapp.core.Result
 import com.example.blogapp.core.hide
 import com.example.blogapp.core.show
 import com.example.blogapp.data.model.Post
+import com.example.blogapp.data.remote.HomeScreenDataSource
 import com.example.blogapp.ui.adapter.OnPostClickListener
 
 
