@@ -19,6 +19,11 @@ class HomeScreenDataSource {
 
             for (post in querySnapshot.documents) {
                 post.toObject(Post::class.java)?.let { fbPost ->
+
+                    val isLiked = FirebaseAuth.getInstance().currentUser?.let { safeUser ->
+                        isPostliked(post.id, safeUser.uid)
+                    }
+
                     fbPost.apply {
                         created_at = post.getTimestamp(
                             "created_at",
@@ -26,12 +31,24 @@ class HomeScreenDataSource {
                         )?.toDate()
                         id = post.id
 
+                        if (isLiked != null) {
+                            liked = isLiked
+                        }
+
                     }
                     postList.add(fbPost)
                 }
             }
         }
         return Result.Success(postList)
+    }
+
+    private suspend fun isPostliked(postId: String, uid: String): Boolean {
+        val post =
+            FirebaseFirestore.getInstance().collection("postsLikes").document(postId).get().await()
+        if (!post.exists()) return false
+        val likeArray: List<String> = post.get("likes") as List<String>
+        return likeArray.contains(uid)
     }
 
     fun registerLikeButtonState(postId: String, liked: Boolean) {
@@ -68,6 +85,8 @@ class HomeScreenDataSource {
             throw Exception(it.message)
         }
     }
+
+
 }
 
 
