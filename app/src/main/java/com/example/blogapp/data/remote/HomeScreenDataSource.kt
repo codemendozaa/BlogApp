@@ -5,49 +5,36 @@ import com.example.blogapp.data.model.Post
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class HomeScreenDataSource {
 
-    @ExperimentalCoroutinesApi
-    suspend fun getLatesPosts(): Flow<Result<List<Post>>> = callbackFlow {
+    suspend fun getLatesPosts(): Result<List<Post>> {
         val postList = mutableListOf<Post>()
-        var postReference: Query? = null
-        try {
-            postReference = FirebaseFirestore.getInstance().collection("post")
-                .orderBy("created_at", Query.Direction.DESCENDING)
+        withContext(Dispatchers.IO) {
+            val querySnapshot = FirebaseFirestore.getInstance().collection("post")
+                .orderBy("created_at", Query.Direction.DESCENDING).get().await()
 
-        } catch (e: Throwable) {
-            close(e)
-        }
-
-        val suscription = postReference?.addSnapshotListener { value, error ->
-            if (value == null) return@addSnapshotListener
-
-            try {
-                postList.clear()
-                for (post in value.documents) {
-                    post.toObject(Post::class.java)?.let { fbPost ->
-                        fbPost.apply {
-                            created_at = post.getTimestamp(
-                                "created_at",
-                                DocumentSnapshot.ServerTimestampBehavior.ESTIMATE
-                            )?.toDate()
-                         //   val like = isPostLiked(uid,postId)
-                        }
-                        postList.add(fbPost)
+            for (post in querySnapshot.documents) {
+                post.toObject(Post::class.java)?.let { fbPost ->
+                    fbPost.apply {
+                        created_at = post.getTimestamp(
+                            "created_at",
+                            DocumentSnapshot.ServerTimestampBehavior.ESTIMATE
+                        )?.toDate()
+                        //   val like = isPostLiked(uid,postId)
                     }
+                    postList.add(fbPost)
                 }
-            }catch (e:Exception){
-                close(e)
             }
-
-            offer(Result.Success(postList))
         }
-        awaitClose { suscription?.remove() }
+        return Result.Success(postList)
     }
 }
+
+
+
+
